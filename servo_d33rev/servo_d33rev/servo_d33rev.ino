@@ -15,7 +15,6 @@ int outVal = 0;
 int myAngle;                 // будет хранить угол поворота
 int pulseWidth;              // длительность импульса
 
-int alarm = 'n';
 
 //
 int Relay = 7;          // Указываем, что вывод реле In1, подключен к реле цифровому выводу 7
@@ -29,12 +28,12 @@ int RelayPolarN = 10;        //Указываем, что вывод реле, подключен к реле цифро
 
 
 
-							 //1-1 питание 
-							 //2-3 сигнал 2
-							 //3-2 сигнал 1
-							 //4-5 земля
+//1-1 питание 
+//2-3 сигнал 2
+//3-2 сигнал 1
+//4-5 земля
 
-							 //угол поворота серво привода
+//угол поворота серво привода
 float Step = 5.0F / 1024; // Вычисляем шаг Uопорн / на градацию 
 
 void servoPulse(int servoPin, int myAngle)
@@ -46,7 +45,6 @@ void servoPulse(int servoPin, int myAngle)
 	delay(20);
 
 }
-
 
 //точка входа в программу основные настройки
 void setup()
@@ -70,35 +68,63 @@ void loop() {
 	//delay(500); // Ждем пол секунды 
 
 
+	String cmd="";
+
+	//чтение строки данных из Com порта
 	char inString[10];
 	int i = 0;
-	while (Serial.available()) {
+	while (Serial.available()>0) {
 		delay(1);
 		inString[i] = Serial.read();
 		if (inString[i] == '_') {
-			Serial.print("String1: ");
-			Serial.println(inString);
-			int i = 0;
-			while (i < 10) {
-				inString[i] = '_';
-				i++;
-			}
+			cmd = inString;
+			//Serial.println(inString);
 		}
 		i++;
 	}
 
+	if (cmd!="")
+	{
+		Serial.println(cmd);
+	}
+
+
+
+	//Измерение с вывода А5 и вывод данных в COM порт 
 	outVal = analogRead(A5);
 	delay(100); // Ждем 0.001
-	char outstr[15];
+	char outstr[10];
 	float f_val = (5.000 / 1024.000)*outVal;
 	dtostrf(f_val, 7, 3, outstr);
-
 	Serial.println(outstr);
 	delay(1000);
 
 
 
 
+
+
+
+
+	switch (val)
+	{
+		//управление сервоприводом
+		//---------------------------------------------------------------------------------
+	case '-': //уменьшение угла поворта
+	{
+		for (myAngle = 0; myAngle <= ang; myAngle++) {
+			servoPulse(servoPin, myAngle);
+		}
+		return;
+	}
+	case '+': //приращение угла поворота
+	{
+		for (myAngle = 180; myAngle >= (180 - ang); myAngle--) {
+			servoPulse(servoPin, myAngle);
+		}
+	}
+	//конец фрагмента для управления сервоприводом
+	//---------------------------------------------------------------------------------
 
 
 
