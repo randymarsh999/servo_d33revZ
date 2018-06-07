@@ -55,9 +55,7 @@ void loop() {
 	//}
 	//cmdA = cmd.substring(1, 3);
 
-	//Измерение с вывода А5 и вывод данных в COM порт 
-	
-	
+	//reading value from A5 and write to Com port
 	outVal = analogRead(A5);
 	delay(100); // wait 0.100
 	char outstr[10];
