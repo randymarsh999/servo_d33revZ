@@ -4,32 +4,26 @@
  Author:	root
 */
 
-int servoPin = 9;            // порт подключения сервы
-int KeyPin = 8;
-int temp = 1;
-int outVal = 0;
+int servoPin = 9;	//port for servo
+int outVal = 0;	//out value for analog signal
 
 //переменные для угла поворота
 int myAngle;                 // rotate angle
-int pulseWidth;              // длительность импульса
-
-//Rotate angle for servo motor
-float Step = 5.0F / 1024; // Вычисляем шаг Uопорн / на градацию 
+int pulseWidth;              // puls durationn
 
 void servoPulse(int servoPin, int myAngle)
 {
-	pulseWidth = (myAngle * 11) + 500;  // конвертируем угол в микросекунды
-	digitalWrite(servoPin, HIGH);       // устанавливаем серве высокий уровень
-	delayMicroseconds(pulseWidth);      // ждём
-	digitalWrite(servoPin, LOW);        // устанавливаем низкий уровень
-	delay(20);
+	pulseWidth = (myAngle * 11) + 500;  // convert angle to microseconds
+	digitalWrite(servoPin, HIGH);       // turn on servo
+	delayMicroseconds(pulseWidth);      // wait
+	digitalWrite(servoPin, LOW);        // turn off servo
+	delay(20);	//wait
 }
 
-//точка входа в программу основные настройки
 void setup()
 {
 	// put your setup code here, to run once:
-	pinMode(servoPin, OUTPUT);          // конфигурируем пин сервы, как выход
+	pinMode(servoPin, OUTPUT);          // set pin for servo
 	Serial.begin(9600);	//set speed Com port
 	pinMode(A5, INPUT);	//set port A5 as input
 }
@@ -37,7 +31,7 @@ void setup()
 void loop() {
 	//String cmd="";
 	//String cmdA = "";
-	////чтение строки данных из Com порта
+	////reading data from Com port to string
 	//char inString[15];
 	//int i = 0;
 	//while (Serial.available()>0) {
