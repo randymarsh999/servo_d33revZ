@@ -7,7 +7,7 @@
 int servoPin = 9;	//port for servo
 int outVal = 0;	//out value for analog signal
 
-//переменные для угла поворота
+//variable for rotate angle
 int myAngle;                 // rotate angle
 int pulseWidth;              // puls durationn
 
