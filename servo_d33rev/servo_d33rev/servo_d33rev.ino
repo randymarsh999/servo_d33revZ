@@ -29,26 +29,6 @@ void setup()
 }
 
 void loop() {
-	//String cmd="";
-	//String cmdA = "";
-	////reading data from Com port to string
-	//char inString[15];
-	//int i = 0;
-	//while (Serial.available()>0) {
-	//	delay(1);
-	//	inString[i] = Serial.read();
-	//	if (inString[i] == '_') {
-	//		cmd = inString;
-	//		//Serial.println(inString);
-	//	}
-	//	i++;
-	//}
-	//if (cmd!="")
-	//{
-	//	Serial.println(cmd);
-	//}
-	//cmdA = cmd.substring(1, 3);
-
 	//reading value from A5 and write to Com port
 	outVal = analogRead(A5);
 	delay(100); // wait 0.100
